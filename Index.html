@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rotaract Club of Social Crew</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fa; }
+
+    /* Header */
+    header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); position: fixed; top: 0; width: 100%; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    nav { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; }
+    .logo { font-size: 1.8rem; font-weight: bold; background: linear-gradient(135deg, #7c3aed, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .nav-links { display: flex; list-style: none; gap: 2rem; }
+    .nav-links a { text-decoration: none; color: #4b5563; font-weight: 500; transition: all 0.3s ease; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 50%; background: linear-gradient(135deg, #7c3aed, #a855f7); transition: all 0.3s ease; transform: translateX(-50%); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: #7c3aed; }
+    .join-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; padding: 0.75rem 2rem; border: none; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3); }
+    .join-btn:hover { background: linear-gradient(135deg, #9333ea, #7c3aed); transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(124, 58, 237, 0.4); }
+
+    /* Hero Section */
+    .hero { /* Replace gradient with an image while keeping overlay */
+      height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: white; position: relative; overflow: hidden;
+      background-image: url('hero.jpg'); /* TODO: replace with your image path */
+      background-size: cover; background-position: center; background-repeat: no-repeat;
+    }
+    .hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(124,58,237,0.85), rgba(168,85,247,0.85)); }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 0 2rem; }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+    .hero p { font-size: 1.3rem; margin-bottom: 2rem; opacity: 0.95; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary, .btn-secondary { padding: 1rem 2rem; border-radius: 50px; font-weight: 600; text-decoration: none; transition: all 0.3s ease; border: 2px solid transparent; display: inline-block; }
+    .btn-primary { background: white; color: #7c3aed; }
+    .btn-primary:hover { background: transparent; color: white; border-color: white; transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: white; border-color: white; }
+    .btn-secondary:hover { background: white; color: #7c3aed; transform: translateY(-2px); }
+
+    /* Sections */
+    section { padding: 5rem 0; }
+    .container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    .section-header { text-align: center; margin-bottom: 4rem; }
+    .section-header h2 { font-size: 2.5rem; color: #1f2937; margin-bottom: 1rem; font-weight: 700; }
+    .section-header p { font-size: 1.1rem; color: #6b7280; max-width: 600px; margin: 0 auto; }
+
+    /* About */
+    .about { background: white; }
+    .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-text h3 { font-size: 1.8rem; color: #7c3aed; margin-bottom: 1rem; }
+    .about-text p { color: #6b7280; margin-bottom: 1.5rem; line-height: 1.8; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+    .stat { text-align: center; background: #f8f9fa; padding: 1.5rem; border-radius: 16px; box-shadow: 0 6px 24px rgba(0,0,0,0.08); transition: transform 0.3s ease; }
+    .stat:hover { transform: translateY(-6px) scale(1.02); }
+    .stat-number { font-size: 2.5rem; font-weight: 800; color: #7c3aed; }
+    .stat-label { color: #6b7280; font-weight: 600; }
+
+    /* Services */
+    .services { background: #f8f9fa; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+    .service-card { background: white; padding: 3rem 2rem; border-radius: 20px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1); transition: all 0.4s ease; position: relative; overflow: hidden; }
+    .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .service-card:hover { transform: translateY(-12px) scale(1.01); box-shadow: 0 25px 50px rgba(124, 58, 237, 0.2); }
+    .service-icon { width: 100px; height: 100px; background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem; font-size: 2.5rem; }
+    .service-card:nth-child(1) .service-icon::after { content: '🤝'; }
+    .service-card:nth-child(2) .service-icon::after { content: '📊'; }
+    .service-card:nth-child(3) .service-icon::after { content: '🌟'; }
+    .service-title { color: #7c3aed; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .service-description { color: #6b7280; line-height: 1.8; }
+
+    /* Projects */
+    .projects { background: white; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+    .project-card { background: #f8f9fa; border-radius: 15px; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 5px 20px rgba(0,0,0,0.1); position: relative; }
+    .project-card:hover { transform: translateY(-10px) scale(1.01); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+    .project-image { height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem; position: relative; }
+    .project-content { padding: 2rem; }
+    .project-title { font-size: 1.3rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem; }
+    .project-description { color: #6b7280; line-height: 1.6; padding-bottom: 2.5rem; }
+    .more-info { position: absolute; right: 1rem; bottom: 1rem; text-decoration: none; font-weight: 700; font-size: 0.95rem; background: white; color: #7c3aed; padding: 0.5rem 0.9rem; border-radius: 999px; border: 2px solid #7c3aed; transition: all 0.25s ease; }
+    .more-info:hover { background: #7c3aed; color: white; transform: translateY(-2px); box-shadow: 0 8px 22px rgba(124,58,237,0.25); }
+
+    .view-more-wrap { text-align: center; margin-top: 2rem; }
+    .view-more-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; padding: 0.9rem 1.4rem; border-radius: 999px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 22px rgba(124,58,237,0.25); transition: transform 0.2s ease; }
+    .view-more-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+    /* Team */
+    .team { background: #f8f9fa; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
+    .team-card { background: white; border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 5px 20px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+    .team-card:hover { transform: translateY(-5px) scale(1.01); box-shadow: 0 15px 35px rgba(0,0,0,0.15); }
+    .team-avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #a855f7); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: bold; }
+    .team-name { font-size: 1.2rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem; }
+    .team-role { color: #7c3aed; font-weight: 500; }
+
+    /* Merchandise */
+    .merchandise { background: white; }
+    .merchandise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    .product-card { background: #f8f9fa; border-radius: 20px; overflow: hidden; transition: all 0.4s ease; box-shadow: 0 10px 30px rgba(0,0,0,0.1); position: relative; }
+    .product-card:hover { transform: translateY(-10px) scale(1.01); box-shadow: 0 20px 40px rgba(124, 58, 237, 0.2); }
+    .product-image { height: 250px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem; position: relative; overflow: hidden; }
+    .product-image::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, #7c3aed, #a855f7); opacity: 0.9; }
+    .product-image span { position: relative; z-index: 2; }
+    .product-info { padding: 2rem; }
+    .product-title { font-size: 1.3rem; font-weight: 600; color: #1f2937; margin-bottom: 0.5rem; }
+    .product-description { color: #6b7280; line-height: 1.6; margin-bottom: 1.5rem; }
+    .product-footer { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 1.5rem; font-weight: 700; color: #7c3aed; }
+    .product-btn { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+    .product-btn:hover { background: linear-gradient(135deg, #9333ea, #7c3aed); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4); }
+    .product-badge { position: absolute; top: 1rem; right: 1rem; background: rgba(255,255,255,0.9); color: #7c3aed; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; z-index: 3; }
+    .merchandise-cta { text-align: center; margin-top: 3rem; padding: 3rem; background: linear-gradient(135deg, #f8fafc, #e2e8f0); border-radius: 20px; }
+    .merchandise-cta h3 { font-size: 1.8rem; color: #1f2937; margin-bottom: 1rem; }
+    .merchandise-cta p { color: #6b7280; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+    /* Contact */
+    .contact { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; text-align: center; }
+    .contact h2 { color: white; }
+    .contact-content { max-width: 600px; margin: 0 auto; }
+    .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .contact-item { background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px); }
+    .contact-item h3 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 600; }
+
+    /* Footer */
+    footer { background: #1f2937; color: white; text-align: center; padding: 3rem 0; }
+    .footer-content { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+    .footer-links a { color: #9ca3af; text-decoration: none; transition: color 0.3s ease; }
+    .footer-links a:hover { color: #a855f7; }
+
+    /* Smooth scrolling */
+    html { scroll-behavior: smooth; }
+
+    .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.team-avatar {
+  width: 100px;          /* circle width */
+  height: 100px;         /* circle height */
+  border-radius: 50%;    /* makes it round */
+  overflow: hidden;      /* hides anything outside circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eee;      /* optional fallback color */
+  border: 3px solid #6c63ff; /* optional border to keep the circle visible */
+}
+
+.team-avatar .team-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;     /* keeps aspect ratio, fills circle */
+  border-radius: 50%;    /* ensures image corners are clipped */
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   /* Ensures the image fills the box without distortion */
+  border-radius: 0;    /* Keeps corners square, can set to 15px if you want rounded */
+}
+.project-image {
+  height: 200px;       /* already exists in your CSS */
+  overflow: hidden;    /* hides any image overflow */
+}
+
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  border: 2px solid #fff;   /* white border */
+  border-radius: 50px;      /* oval shape */
+  padding: 5px 15px;
+  background: transparent;  /* keep theme background */
+}
+
+.logo-img {
+  height: 40px;             /* adjust as per your design */
+  margin: 0 8px;            /* space between logos */
+  display: block;
+}
+
+
+
+
+    /* Scroll Reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.reveal-visible { opacity: 1; transform: none; }
+
+    /* Modals (generic) */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 1rem; }
+    .modal-overlay.active { display: flex; }
+    .modal-card { background: white; border-radius: 20px; width: min(560px, 95vw); max-height: 85vh; overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,0.25); border: 2px solid #ede9fe; }
+    .modal-header { padding: 1.25rem 1.5rem; background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-size: 1.25rem; font-weight: 800; }
+    .modal-close { background: transparent; border: 0; color: white; font-size: 1.5rem; cursor: pointer; line-height: 1; }
+    .modal-body { padding: 1.25rem 1.5rem; color: #374151; overflow: auto; max-height: calc(85vh - 64px); }
+    .modal-actions { display: flex; gap: 0.75rem; justify-content: flex-end; padding: 1rem 1.5rem 1.5rem; }
+    .btn { border: 0; border-radius: 999px; padding: 0.75rem 1.25rem; font-weight: 700; cursor: pointer; }
+    .btn-outline { background: white; border: 2px solid #7c3aed; color: #7c3aed; }
+    .btn-outline:hover { background: #7c3aed; color: white; }
+    .btn-gradient { background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; }
+    .btn-gradient:hover { filter: brightness(1.05); transform: translateY(-1px); }
+
+    /* Project details modal tweaks */
+    .project-details h3 { margin: 0.5rem 0 0.25rem; color: #7c3aed; }
+    .project-details h4 { margin: 1rem 0 0.5rem; color: #4b5563; }
+
+    /* View more (projects list) modal */
+    .projects-modal .modal-card { width: min(1100px, 96vw); }
+    .projects-modal .modal-body { padding: 1.5rem; }
+    .projects-grid-modal { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.25rem; }
+
+    /* Animations keyframes (legacy fadeUp) */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .service-card, .project-card, .team-card, .product-card { animation: fadeInUp 0.6s ease forwards; }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hero h1 { font-size: 2.4rem; }
+      .hero p { font-size: 1.05rem; }
+      .cta-buttons { flex-direction: column; align-items: center; }
+      .about-content { grid-template-columns: 1fr; text-align: center; }
+      .stats { grid-template-columns: 1fr; }
+      section { padding: 3rem 0; }
+      .container { padding: 0 1rem; }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">Social Crew</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#merchandise">Merchandise</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#" class="join-btn" data-open-join>Join Now</a>
+    </nav>
+  </header>
+
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-content reveal">
+      <h1>Rotaract Club of Social Crew</h1>
+      <p>Empowering young leaders to create positive change in communities through service above self</p>
+      <div class="cta-buttons">
+        <a href="#about" class="btn-primary">Learn More</a>
+        <a href="#" class="btn-secondary" data-open-join>Join Us Today</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>About Our Club</h2>
+        <p>Discover who we are and what drives our mission to serve the community</p>
+      </div>
+      <div class="about-content">
+        <div class="about-text reveal">
+          <h3>Building Tomorrow's Leaders</h3>
+          <p>Rotaract is a global network of 18-30 year olds whose aim is to create positive change in communities and in themselves. The Rotaract Club of Social Crew is dedicated to building a better tomorrow through service above self.</p>
+          <p>We believe in the power of young people to make a difference. Through our various initiatives, we focus on community development, leadership training, and creating lasting friendships that span across cultures and borders.</p>
+          <p>Our club is part of Rotary International, the world's first service organization, giving us access to a global network of like-minded individuals committed to creating positive change.</p>
+        </div>
+        <div class="stats reveal" id="stats">
+  <div class="stat">
+    <div class="stat-number counter" data-target="150" id="membersCount">0+</div>
+    <div class="stat-label">Members</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number counter" data-target="50" id="projectsCount">0+</div>
+    <div class="stat-label">Projects</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number counter" data-target="5000" id="livesCount">0+</div>
+    <div class="stat-label">Lives Impacted</div>
+  </div>
+</div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="services">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>What We Do</h2>
+        <p>Our three main areas of focus that drive all our initiatives and projects</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal">
+          <div class="service-icon"></div>
+          <h3 class="service-title">Community Service</h3>
+          <p class="service-description">Making a positive impact through meaningful service projects that address real community needs. From education initiatives to environmental conservation, we tackle challenges that matter.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon"></div>
+          <h3 class="service-title">Leadership Development</h3>
+          <p class="service-description">Building tomorrow's leaders through hands-on experience and professional development opportunities. We provide training, mentorship, and real-world leadership experiences.</p>
+        </div>
+        <div class="service-card reveal">
+          <div class="service-icon"></div>
+          <h3 class="service-title">Fellowship & Networking</h3>
+          <p class="service-description">Creating lasting friendships and professional connections with like-minded young adults. Our club is a place where lifelong relationships are formed and nurtured.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Our Impact</h2>
+        <p>Recent projects and initiatives that showcase our commitment to community service</p>
+      </div>
+      <div class="projects-grid">
+        <article class="project-card reveal" data-title="Mahadan 10.0 "
+         data-desc="As part of Mahadan 10.0, our club hosted nine blood donation camps in Jamshedpur, Jharkhand, successfully collecting the highest number of blood units (358) in our district, RID 3250. Alongside the camps, we engaged the community through awareness programs like poster-making competitions to promote the importance of voluntary blood donation. ">
+          <div class="project-image"><img class="project-img" src="mahadan1.jpg" alt="Mahadan"></div>
+          <div class="project-content">
+            <h3 class="project-title">Mahadan 10.0 </h3>
+            <p class="project-description">As part of Mahadan 10.0, our club hosted nine blood donation camps in Jamshedpur, Jharkhand, successfully collecting the highest number of blood units (358) in our district, RID 3250. Alongside the camps, we engaged the community through awareness programs like poster-making competitions to promote the importance of voluntary blood donation. </p>
+          </div>
+          <!-- Landing card opens its own modal (projectModal1) -->
+          <a href="javascript:void(0)" class="more-info" onclick="openModal(document.getElementById('projectModal1'))">More info</a>
+        </article>
+        <article class="project-card reveal" data-title="Visibility Matters" data-desc=""Visibility Matters" was a road safety initiative organized by the Rotaract Club of Social Crew at the Tatanagar Railway Station area to enhance the safety of vulnerable road users by increasing their visibility during nighttime. The project involved placing reflective stickers on over 600 cycles and fitting radium reflective belts on 55 dogs and 50 cows to reduce accidents caused by poor visibility.">
+          <div class="project-image"><img class="project-img" src="Visibility1.jpg" alt="Visibility Matters"></div>
+          <div class="project-content">
+            <h3 class="project-title">Visibility Matters</h3>
+            <p class="project-description">"Visibility Matters" was a road safety initiative organized by the Rotaract Club of Social Crew at the Tatanagar Railway Station area to enhance the safety of vulnerable road users by increasing their visibility during nighttime. The project involved placing reflective stickers on over 600 cycles and fitting radium reflective belts on 55 dogs and 50 cows to reduce accidents caused by poor visibility.</p>
+          </div>
+          <!-- Landing card opens its own modal (projectModal2) -->
+          <a href="javascript:void(0)" class="more-info" onclick="openModal(document.getElementById('projectModal2'))">More info</a>
+        </article>
+        <article class="project-card reveal" data-title="Summer Camp" data-desc="The Rotaract Club of Social Crew organized a two-day summer camp for over 100 children at Baldev Basti, blending fun and learning through creative games, science experiments, and artistic activities that sparked curiosity and imagination among young minds.">
+          <div class="project-image"><img class="project-img" src="camp2.jpg" alt="Summer Camp"></div>
+          <div class="project-content">
+            <h3 class="project-title">Summer Camp</h3>
+            <p class="project-description">The Rotaract Club of Social Crew organized a two-day summer camp for over 100 children at Baldev Basti, blending fun and learning through creative games, science experiments, and artistic activities that sparked curiosity and imagination among young minds.</p>
+          </div>
+          <!-- Landing card opens its own modal (projectModal3) -->
+          <a href="javascript:void(0)" class="more-info" onclick="openModal(document.getElementById('projectModal3'))">More info</a>
+        </article>
+      </div>
+
+      <div class="view-more-wrap reveal">
+        <button class="view-more-btn" id="openProjectsList">View more</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+<section id="team" class="team">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2>Our Leadership</h2>
+      <p>Meet the dedicated individuals who guide our club's mission and vision</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Abhinav.jpg" alt="Abhinav Kumar" /></div><h3 class="team-name">Abhinav Kumar</h3><p class="team-role">Club Moderator</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Anand.jpg" alt="Rtr. Aanand Raj Singh" /></div><h3 class="team-name">Rtr. Anand Raj Singh</h3><p class="team-role">President</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Ehtesham.jpg" alt="Rtr. MD. Ehtesham" /></div><h3 class="team-name">Rtr. MD. Ehtesham</h3><p class="team-role">Secretary</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Noor.jpg" alt="Rtr. Noor Afshan" /></div><h3 class="team-name">Rtr. Noor Afshan</h3><p class="team-role">Treasurer</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Shubho.jpg" alt="Rtr. Shubho Patra" /></div><h3 class="team-name">Rtr. Shubho Patra</h3><p class="team-role">Vice President</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Monalisha.jpg" alt="Rtr. Monalisha Sahoo" /></div><h3 class="team-name">Rtr. Monalisha Sahoo</h3><p class="team-role">Joint Secretary</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Alfia.jpg" alt="Rtr. Alfia Ahmad" /></div><h3 class="team-name">Rtr. Alfia Ahmad</h3><p class="team-role">Club Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Shruti.jpg" alt="Rtr. Shruti Sharma" /></div><h3 class="team-name">Rtr. Shruti Sharma</h3><p class="team-role">Professional Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Mehdia.jpg" alt="Rtr. Mehdia Fatima" /></div><h3 class="team-name">Rtr. Mehdia Fatima</h3><p class="team-role">Project Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Rajdeep3.jpg" alt="Rtr. Rajdeep Ray" /></div><h3 class="team-name">Rtr. Rajdeep Ray</h3><p class="team-role">International Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Faraz.jpg" alt="Rtr. Faraz Ali" /></div><h3 class="team-name">Rtr. Faraz Ali</h3><p class="team-role">Vocational Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Aayesha.jpg" alt="Rtr. Ayesha Hayat" /></div><h3 class="team-name">Rtr. Ayesha Hayat</h3><p class="team-role">Community Service Director</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Mir.jpg" alt="Rtr. Mir Anzar Mustafa" /></div><h3 class="team-name">Rtr. Mir Anzar Mustafa</h3><p class="team-role">Editor in Chief</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Shibansh.jpg" alt="Rtr. Shibansh Mahapatra" /></div><h3 class="team-name">Rtr. Shibansh Mahapatra</h3><p class="team-role">Club Bulletin Editor</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Mahi.jpg" alt="Rtr. Mahi Sinha" /></div><h3 class="team-name">Rtr. Mahi Sinha</h3><p class="team-role">PR Head</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Maaz.jpg" alt="Rtr. Arjaman Maaz" /></div><h3 class="team-name">Rtr. Arjaman Maaz</h3><p class="team-role">Sergent at Arms</p></div>
+      <div class="team-card reveal"><div class="team-avatar"><img class="team-photo" src="Rtr_Vandana.jpg" alt="Rtr. Vandana Yadav" /></div><h3 class="team-name">Rtr. Vandana Yadav</h3><p class="team-role">Club Trainee</p></div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Merchandise -->
+  <section id="merchandise" class="merchandise">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Club Merchandise (Coming Soon)</h2>
+        <p>Show your Rotaract pride with our exclusive merchandise collection</p>
+      </div>
+      <div class="merchandise-grid">
+        <div class="product-card reveal">
+          <div class="product-badge">Popular</div>
+          <div class="product-image"><span>👕</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Official Club T-Shirt</h3>
+            <p class="product-description">Premium quality cotton t-shirt with our club logo and Rotaract branding. Available in multiple colors and sizes.</p>
+            <div class="product-footer">
+              <span class="product-price">$25</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-image"><span>🧢</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Club Baseball Cap</h3>
+            <p class="product-description">Stylish embroidered baseball cap perfect for casual wear and club events. Adjustable fit for maximum comfort.</p>
+            <div class="product-footer">
+              <span class="product-price">$20</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-image"><span>☕</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Social Crew Mug</h3>
+            <p class="product-description">Ceramic coffee mug with our club motto "Service Above Self" and beautiful design. Perfect for your morning coffee.</p>
+            <div class="product-footer">
+              <span class="product-price">$15</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-badge">New</div>
+          <div class="product-image"><span>👔</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Professional Polo Shirt</h3>
+            <p class="product-description">Business casual polo shirt with subtle club branding. Perfect for meetings and professional events.</p>
+            <div class="product-footer">
+              <span class="product-price">$35</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-image"><span>🎒</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Club Backpack</h3>
+            <p class="product-description">Durable backpack with multiple compartments and our club logo. Great for students and professionals alike.</p>
+            <div class="product-footer">
+              <span class="product-price">$45</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+        <div class="product-card reveal">
+          <div class="product-image"><span>📓</span></div>
+          <div class="product-info">
+            <h3 class="product-title">Club Notebook</h3>
+            <p class="product-description">High-quality notebook for meeting notes and ideas.</p>
+            <div class="product-footer">
+              <span class="product-price">$12</span>
+              <a href="#contact" class="product-btn">Order Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="merchandise-cta reveal">
+        <h3>Want something custom?</h3>
+        <p>We can create custom merchandise for your committee or event. Reach out with your ideas!</p>
+        <a class="btn btn-gradient" href="#contact">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header reveal">
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you. Reach out for collaborations, membership, or queries.</p>
+      </div>
+      <div class="contact-content reveal">
+        <div class="contact-info">
+          <div class="contact-item"><h3>Email</h3><p>info@socialcrew.example</p></div>
+          <div class="contact-item"><h3>Phone</h3><p>+91 98765 43210</p></div>
+          <div class="contact-item"><h3>Address</h3><p>Netaji Subhas University, Jamshedpur</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-links"><a href="#home">Home</a><a href="#about">About</a><a href="#projects">Projects</a><a href="#team">Team</a></div>
+      <p>© <span id="year"></span> Rotaract Club of Social Crew. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Join Modal -->
+  <div class="modal-overlay" id="joinModal" aria-hidden="true" role="dialog">
+    <div class="modal-card" role="document">
+      <div class="modal-header">
+        <div class="modal-title">Join Rotaract Club of Social Crew</div>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <h3 style="margin-bottom: .5rem; color:#7c3aed;">Ready to be a Rotaractor?</h3>
+        <p>Welcome to the Rotaract Club of Social Crew! Click the ‘Join’ button below and fill out the Google Form to confirm your membership</p>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" data-close>Maybe later</button>
+        <a class="btn btn-gradient" href="https://docs.google.com/forms/d/e/1FAIpQLSemXi7382wC8c1SyIoO-urKsnC3oiVXtgNi6lgPHyA3PsI4ow/viewform?usp=header" target="_blank" rel="noopener">Join</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTE: removed the old shared '#projectModal' block here (it was dynamic). We're using separate modals below. -->
+
+  <!-- Projects List Modal (View More) -->
+  <div class="modal-overlay projects-modal" id="projectsListModal" aria-hidden="true" role="dialog">
+    <div class="modal-card" role="document">
+      <div class="modal-header">
+        <div class="modal-title">All Projects</div>
+        <button class="modal-close" data-close>&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="projects-grid-modal">
+          <!-- First 3 (same as landing) - these will open the same modals (1..3) -->
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Mahadan2.jpg" alt="Mahadan"></div><div class="project-content"><h3 class="project-title">Mahadan 10.0</h3><p class="project-description">As part of Mahadan 10.0, our club hosted nine blood donation camps in Jamshedpur, Jharkhand, successfully collecting the highest number of blood units (358) in our district, RID 3250. Alongside the camps, we engaged the community through awareness programs like poster-making competitions to promote the importance of voluntary blood donation.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal1')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Visibility3.jpg""></div><div class="project-content"><h3 class="project-title">Visibility Matters </h3><p class="project-description">"Visibility Matters" was a road safety initiative organized by the Rotaract Club of Social Crew at the Tatanagar Railway Station area to enhance the safety of vulnerable road users by increasing their visibility during nighttime. The project involved placing reflective stickers on over 600 cycles and fitting radium reflective belts on 55 dogs and 50 cows to reduce accidents caused by poor visibility.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal2')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="camp1.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Summer Camp</h3><p class="project-description">The Rotaract Club of Social Crew organized a two-day summer camp for over 100 children at Baldev Basti, blending fun and learning through creative games, science experiments, and artistic activities that sparked curiosity and imagination among young minds.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal3')">More info</a></article>
+
+          <!-- 10 unique project cards (4..13) -->
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Sharbat1.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Refresh And Rehydrate</h3><p class="project-description">The Rotaract Club of Social Crew, in collaboration with Sikh Naujawan Union Jamshedpur, successfully organized a Mega Sharbat & Shikanji Distribution Drive at Sakchi Golchakkar, providing refreshing drinks to over 2,700 beneficiaries as an act of community service and care.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal4')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Draw1.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Draw Safe Stay Safe</h3><p class="project-description">The Rotaract Club of Social Crew organized a Road Safety Awareness Session and Drawing Competition at Surat Samaj School to educate over 80 students about road safety rules while encouraging their artistic expression.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal5')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Maternal3.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Maternal Kits distribution</h3><p class="project-description">The Rotaract Club of Social Crew organized a Maternal Kits Distribution Drive across multiple local hospitals on July 30, 2025, distributing 67 kits containing essential maternal care items to expecting and new mothers to support their health and hygiene.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal6')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="DrDay.jpg" alt=""></div><div class="project-content"><h3 class="project-title">National Doctor's Day</h3><p class="project-description">On National Doctor’s Day, July 1, 2025, the Rotaract Club of Social Crew held a special felicitation ceremony to honor the dedication and selfless service of doctors and healthcare heroes, including Dr. Nirmal Kumar and Dr. N.K. Das.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal7')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Shikha.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Project SHIKHA</h3><p class="project-description">The Rotaract Club of Social Crew honored the memory of Late Rtr. Shikha by organizing Project "SHIKHA" on August 5, 2025, at Missionaries of Charity. The project included a donation drive providing essential food, cleaning supplies, dairy products, and medicines to support the daily needs of 17 children</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal8')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Shiksha.jpg"></div><div class="project-content"><h3 class="project-title">Shiksha Ki Muskaan</h3><p class="project-description">The Rotaract Club of Social Crew organized a Copy and Stationery Distribution Drive on August 15, 2025, at Baldev Basti, distributing over 220 copies and pens to underprivileged children to support their educational needs</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal9')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="breast.jpg"></div><div class="project-content"><h3 class="project-title">Breast Cancer awareness session</h3><p class="project-description">The Rotaract Club of Social Crew, in collaboration with Rotary Club of Jamshedpur Steel City, organized a Breast Cancer Awareness Session on April 16, 2025, for over 400 university girls, featuring expert insights from Dr. Shalini Warman and Rotarian Dr. Urvi Adeshra.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal3')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Shaan .jpg" alt=""></div><div class="project-content"><h3 class="project-title">Shaan E Bharat</h3><p class="project-description">The Rotaract Club of Social Crew organized a flag hosting ceremony at Baldev Basti on August 15, 2025, bringing together community members to celebrate Independence Day and honor the nation’s history and freedom.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal11')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="shaurya.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Shauryanjali :Candle March</h3><p class="project-description">The Rotaract Club of Social Crew organized "Shauryanjali," a solemn candle march on February 14, 2025, honoring the Pulwama martyrs. The march started at Diamond Park and ended at Sakchi Golchakkar, involving community members, police officers, and civilians in a united tribute.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal12')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Krishna.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Shree Krishna Janmotsav</h3><p class="project-description">The Rotaract Club of Social Crew organized a lively Dahi Handi Break and Fancy Dress Competition on August 16, 2025, at Adityapur Road No. 2. Children enthusiastically participated, dressing up as Radha and Krishna, celebrating culture and community spirit.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal13')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Labour.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Faces of NSU</h3><p class="project-description">On May 1st, 2025, the Rotaract Club of Social Crew launched the "Faces of NSU" project at Netaji Subhas University to celebrate and recognize the dedication of university staff through a photography session</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal13')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="old1.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Old Age Home Visit</h3><p class="project-description">On February 9th, 2025, the Rotaract Club of Social Crew visited Ashirwad Bhawan Old Age Home in Baradwari, Jamshedpur, bringing joy and comfort to the elderly residents through the distribution of fruits, sugar-free sweets, and biscuits.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal15')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="diwali1.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Spreading Lights</h3><p class="project-description">The Rotaract Club of Social Crew celebrated Diwali on October 30, 2024, by bringing festive joy to over 160 underprivileged children at Baldev Basti through the distribution of sweets and crackers.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal16')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="Cheshire.jpg" alt=""></div><div class="project-content"><h3 class="project-title">Cheshire Home Visit</h3><p class="project-description">On October 26, 2024, the Rotaract Club of Social Crew organized "Lanterns of Love," a Pre-Diwali celebration at Cheshire Home, Sundernagar, bringing festive joy, warmth, and affection to its residents through donations and cultural activities.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal17')">More info</a></article>
+          <article class="project-card"><div class="project-image"><img class="project-img" src="eye.jpg" alt=""></div><div class="project-content"><h3 class="project-title">EYE and DENTAL check-up camp</h3><p class="project-description">The Rotaract Club of Social Crew organized a Free Eye and Dental Checkup Camp on April 13, 2024, at Firdosh Mahal, Jawahar Nagar Road 17, providing essential health services to the community.</p></div><a href="javascript:void(0)" class="more-info" onclick="openProjectModalFromList('projectModal18')">More info</a></article>
+        </div>
+      </div>
+      <div class="modal-actions"><button class="btn btn-gradient" data-close>Close</button></div>
+    </div> 
+  </div>
+
+  <!-- =======================
+       Individual project modals (1..13)
+       Each modal has class "project-modal" so we can detect it in JS.
+       Replace the placeholder paragraphs with your real content.
+       ======================= -->
+
+<!-- Project Modal 1 -->
+<div class="modal-overlay project-modal" id="projectModal1">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Mahadan 10.0</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>Rotaract club of Social Crew undertook a significant initiative during Mahadan Week aimed at promoting voluntary blood donation and community engagement in Jamshedpur, Jharkhand. Over the course of the event, we successfully hosted nine blood donation camps, reflecting the commitment of our members and volunteers to this noble cause. Alongside the donation camps, we also organized creative activities such as poster-making competitions to raise awareness about blood donation and its crucial role in saving lives. This multifaceted approach ensured active participation from diverse groups, generating enthusiasm and emphasizing the importance of social responsibility. Our outstanding efforts culminated in receiving the Platinum Award from Mahadan for organizing the maximum number of camps, as well as recognition for collecting the highest number of blood units in our district RID 3250.  </p>
+      <br>
+      <h4>Agenda:</h4>
+      <p>he central agenda of our project was to embody the spirit of Mahadan by encouraging regular voluntary blood donation to create a sustainable blood supply for patients in need. Mahadan’s mission highlights the importance of community participation in this life-saving activity, and through our camps and awareness drives, we aimed to break myths, inspire donors, and build a culture of altruism. Supplementing blood camps with awareness events, including creative competitions, helped us engage the youth and educate participants about the critical impact of blood donation on healthcare. Ultimately, our agenda was to foster a sense of solidarity, promote health consciousness, and contribute meaningfully to community well-being.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>The impact of our initiative went beyond just the volume of blood collected; it strengthened community bonds and heightened collective awareness about the significance of blood donation. By achieving the highest collection figures in our district, we directly supported local hospitals and emergency care units, potentially saving hundreds of lives. The awareness programs and creative competitions stimulated broader engagement, educating individuals about the vital role they can play through simple voluntary acts. Our project set a benchmark for other clubs within RID 3250, inspiring them to increase their blood donation efforts. This ripple effect contributes to building a healthier and more compassionate society, driving long-term positive change in community health infrastructure.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 2 -->
+<div class="modal-overlay project-modal" id="projectModal2">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Visibility Matters</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>In this focused, four-hour effort, the club aimed to protect cyclists, stray animals, and local commuters by improving their visibility on roads. Reflective materials were strategically applied to make these vulnerable users more noticeable to motorists and passersby, promoting a safer road environment. The initiative engaged volunteers and community members in an active campaign that exemplified social responsibility and public safety.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary goal was to minimize road accidents and enhance safety by addressing low visibility risks for cyclists, animals, and other vulnerable road users. By increasing awareness and directly improving visibility through reflective materials, the project sought to foster a culture of road safety and protect lives in busy traffic zones.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This project contributed significantly to reducing nighttime road accidents and protecting the lives of cyclists and animals in the region. By highlighting the importance of visibility, it raised public consciousness about road safety challenges and encouraged community participation in preventing accidents. The increased awareness and safer environments resulting from "Visibility Matters" demonstrate a positive step toward building a more responsible, vigilant, and caring community.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 3 -->
+<div class="modal-overlay project-modal" id="projectModal3">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Health & Wellness</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The camp featured engaging activities such as banner making, balloon games, science experiments like volcanic eruptions, drawing sessions, and relay races. These activities were designed to encourage creativity, teamwork, and learning in a joyful environment, while also distributing study kits and essentials as gifts to support the children’s education.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The main goal was to empower and inspire underprivileged children by providing them with a platform for creative expression, interactive learning, and social interaction. The camp aimed to nurture their talents and curiosity through fun educational activities, fostering confidence and community spirit.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This initiative positively impacted the lives of more than 100 children by enhancing their learning experiences and encouraging holistic development. The camp fostered a sense of inclusion and joy, while providing essential school supplies, thereby contributing to the children’s overall growth and educational support within the community.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 4 -->
+<div class="modal-overlay project-modal" id="projectModal4">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Refresh And Rehydrate</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>During this one-day event, the club distributed 9 drums of sharbat and shikanji to people in need, exemplifying the spirit of service and collaboration. The drive aimed to provide relief and refreshment to the community, especially during the summer heat, while fostering unity and goodwill among the participants and volunteers.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to address the community’s immediate need for hydration and comfort by distributing cool beverages widely. This event aligned with Rotary International’s values of community service and humanitarian support, encouraging leadership and collective action to solve pressing societal challenges.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>Through this initiative, the club positively impacted thousands by delivering tangible relief and showcasing the power of organized volunteer efforts. The drive strengthened community bonds, enhanced public well-being during a critical period, and reinforced the club’s commitment to ongoing social responsibility and service.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 5 -->
+<div class="modal-overlay project-modal" id="projectModal5">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Draw Safe Stay Safe</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The session combined informative discussions on road safety with a creative drawing competition that engaged students enthusiastically. The event effectively blended learning with fun, rewarding the winners with prizes and certificates, and involved active participation from the school and community.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The main goal was to instill awareness about road safety among young minds and promote responsible behavior on the roads. By coupling education with creativity, the event aimed to make safety lessons memorable and foster a culture of caution and care in the community.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This initiative raised road safety awareness among children and empowered them to become advocates for safe practices. The event helped cultivate an early understanding of traffic rules, contributing to long-term behavior change and safer communities. It also strengthened the collaboration between the Rotaract Club and educational institutions in promoting social responsibility.</p>
+
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- Project Modal 6 -->
+<div class="modal-overlay project-modal" id="projectModal6">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Maternal kits Distribution</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The drive took place in the maternal wards of Kamini Gorai Chikitsalay, Guru Nanak Hospital, and Daya Hospital. Each kit included mosquito nets, sanitizers, soaps, masks, nutritional items, and greeting cards, addressing the critical needs of underserved mothers and newborns in the community.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The project aimed to improve maternal and child health by providing basic hygiene supplies and nutritional support, especially to those lacking access to essential care. It was conducted in observance of Maternal and Child Health Month, aligning with broader health objectives to ensure safer pregnancies and healthier newborns.</p>
+     <br>
+      <h4>Social Impact</h4>
+      <p>By delivering these crucial kits, the initiative helped enhance maternal well-being and newborn care, reducing health risks and contributing positively to maternal health outcomes. The drive fostered awareness about the importance of maternal hygiene and nutrition, reinforcing the club’s commitment to community health and social support.
+
+</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 7 -->
+<div class="modal-overlay project-modal" id="projectModal7">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">National Doctor's Day</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The event celebrated the invaluable contributions of medical professionals who tirelessly save lives and serve the community. It was an occasion to acknowledge not only doctors but also all unsung heroes in healthcare, expressing gratitude for their compassion and commitment.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to recognize and appreciate the relentless efforts and sacrifices made by doctors and healthcare workers. The event aimed to raise awareness about the vital role these medical professionals play while fostering respect and support for their ongoing mission.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>The felicitation strengthened community appreciation for healthcare providers and highlighted the importance of supporting those who heal others. By publicly acknowledging their commitment, the event promoted morale among medical professionals and inspired the community to value and back the noble cause of healthcare service.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 8 -->
+<div class="modal-overlay project-modal" id="projectModal8">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Project SHIKHA</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>As part of the District Project Shikha, the initiative aimed to carry forward the legacy of compassion and service embodied by Late Rtr. Shikha. The donation included a variety of essential items to assist the children and the caregivers at Missionaries of Charity, reflecting a heartfelt commitment to community welfare and remembrance.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary goal was to provide meaningful support to underserved children by meeting their basic nutritional, hygiene, and medicinal needs. The project also aimed to keep alive the spirit and values of Late Rtr. Shikha by continuing her mission of service and kindness.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This initiative made a tangible difference in the lives of vulnerable children by enhancing their quality of life through access to essential supplies. Beyond material aid, the project fostered a culture of empathy, remembrance, and community responsibility, inspiring continued service within the Rotaract community and beyond.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 9 -->
+<div class="modal-overlay project-modal" id="projectModal9">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Shiksha Ki Muskan</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>This initiative aimed to provide essential study materials to children from underserved communities, enabling them to continue their education with the right resources. The drive was carried out with enthusiastic participation from club members and volunteers, reflecting the organization's commitment to youth empowerment and education.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to bridge educational gaps by supplying basic stationery essentials to children who lack access to these resources. By doing so, the project sought to encourage learning, boost confidence, and inspire academic growth among disadvantaged youth.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>The distribution of copies and pens positively impacted the educational opportunities for many children in Baldev Basti, fostering a supportive environment for learning. This initiative helped promote equal access to education and strengthened community involvement in nurturing the potential of every child.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 10 -->
+<div class="modal-overlay project-modal" id="projectModal10">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Breast Cancer Awareness session</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The session provided detailed information about breast cancer, including causes, symptoms, and treatment options. Dr. Shalini Warman, a specialist in obstetrics and gynecology, addressed key medical aspects, while Dr. Urvi Adeshra highlighted the importance of regular health check-ups and awareness among women.</p>
+      <br> 
+      <h4>Agenda</h4>
+      <p>The primary goal was to educate young women about breast cancer prevention, early detection, and treatment to empower them with knowledge to safeguard their health. The event encouraged active participation and dialogue, fostering a proactive approach towards women’s health.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>By reaching over 400 students, the session enhanced awareness and understanding of breast cancer, promoting early diagnosis and healthy practices. The event supported community health education, inspiring women to prioritize their well-being and encouraging preventive healthcare culture in society.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 11 -->
+<div class="modal-overlay project-modal" id="projectModal11">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Shaan E Bharat</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The ceremony featured the hosting of the national flag followed by the singing of the national anthem. The event fostered unity and patriotic spirit, serving as a meaningful communal tribute to the sacrifices of freedom fighters and the nation's rich legacy.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The main goal was to promote national pride, instill a sense of responsibility toward the country, and strengthen bonds within the local community through collective celebration. The event aimed to encourage respect for national symbols and facilitate civic engagement among all attendees.</p>
+      <br> 
+      <h4>Social Impact</h4>
+      <p>By involving residents in the Independence Day ceremony, the project promoted social harmony, increased awareness of historical sacrifices, and reinforced the values of unity and gratitude. It served to inspire active citizenship and ongoing participation in nation-building initiatives.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 12 -->
+<div class="modal-overlay project-modal" id="projectModal12">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Shauryanjali : Candle March</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>Participants wore black t-shirts and black ribbons on both wrists, symbolizing India's Black Day, as they paid respects along the route. The event was marked by shadhanjali offerings and reflected a collective sense of grief and gratitude for the sacrifices of the Pulwama heroes.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to pay heartfelt tribute to the martyrs and deepen patriotic sentiment within the local community. Through symbolic gestures and collective remembrance, the event aimed to strengthen national pride and foster a spirit of respect for those lost in service.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>"Shauryanjali" inspired unity, remembrance, and patriotism among all participants while honoring the fallen heroes. By bringing together citizens and officials for a shared cause, the march encouraged reflection on sacrifice and reinforced values of solidarity and national responsibility.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 13 -->
+<div class="modal-overlay project-modal" id="projectModal13">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Shree krishna janmotsav</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The event featured a vibrant Dahi Handi celebration symbolizing the playful exploits of Lord Krishna, coupled with a colorful fancy dress competition that showcased the children’s creativity and talent. The day was filled with joyous activities promoting cultural heritage and community bonding.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The objective was to celebrate tradition while engaging children in cultural expressions through dress-up and the popular Dahi Handi ritual. The event aimed to foster a sense of unity, cultural education, and joy within the community.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This initiative reinforced cultural values and community togetherness, providing children with a platform to express their talent and heritage. It enhanced community spirit and promoted awareness of traditional festivities, preserving cultural identity among younger generations</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 14 -->
+<div class="modal-overlay project-modal" id="projectModal14">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Faces of NSU</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The initiative involved capturing portraits of university staff members and sharing these photos with them. The portraits were later displayed on the pillars around the campus, showcasing the hard work and commitment of the university’s workforce in a visible and appreciative manner.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The project aimed to boost the morale of university staff by publicly acknowledging their contributions and fostering a greater sense of community within the campus. By visually highlighting the staff, the initiative encouraged appreciation and respect for their essential roles.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>"Faces of NSU" enhanced community spirit and workplace pride by celebrating unsung heroes of the university. The project promoted a culture of recognition and unity, boosting the confidence and motivation of staff while inspiring a more connected campus environment.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 15 -->
+<div class="modal-overlay project-modal" id="projectModal15">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Old Age Home Visit</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The visit included meaningful interactions with the residents, engaging in conversations and learning from their life stories. This effort was part of the club’s initiative to spread joy, companionship, and positivity among senior citizens.</p>
+      <h4>Agenda</h4>
+      <br>
+      <p>The project aimed to provide emotional support and essential treats to the elderly residents to make them feel cared for and valued. It focused on fostering a sense of community and respect towards senior members of society.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This visit lightened the lives of the elderly by reducing loneliness and bringing smiles to their faces. It strengthened community connections and highlighted the importance of compassion and attention for the senior citizens.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 16 -->
+<div class="modal-overlay project-modal" id="projectModal16">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Spreading Lights</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The event featured the sharing of sweets and crackers, collective celebration of the festival by burning crackers together, and interactive moments fostering a strong sense of community and togetherness among the children.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to spread happiness and inclusivity during the festival of lights by enabling children from underserved communities to partake in the celebrations. The event sought to promote social responsibility and community bonding during the festive season.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This celebration brought smiles and joy to countless children, uplifting their spirits and reminding them that they are valued members of the community. It reinforced a culture of inclusiveness, social care, and youth empowerment within Baldev Basti and beyond.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 17 -->
+<div class="modal-overlay project-modal" id="projectModal17">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Cheshire Home visit</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The event involved distributing sweets, fruits, chocolates, clothes, and decorative candles/diyas to the residents. Volunteers engaged in fun activities like singing and dancing, creating a lively and heartfelt atmosphere filled with love and community spirit.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The objective was to extend happiness and companionship to marginalized individuals who often face neglect, ensuring they too experience the joy of festival celebrations. The project sought to foster empathy, inclusion, and community bonding through shared festive moments.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This celebration uplifted the spirits of the residents, strengthening human connections and restoring faith in humanity. It exemplified the club's commitment to inclusive service and compassion, making the event not only memorable but deeply cherished by all involved.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal 18 -->
+<div class="modal-overlay project-modal" id="projectModal18">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">EYE and DENTAL check-up camp</div>
+      <button class="modal-close" data-close>&times;</button>
+    </div>
+    <div class="modal-body">
+      <h3>Overview</h3>
+      <p>The camp benefited 69 individuals with eye checkups led by Dr. Purnima, an ophthalmologist from Trinetram Hospital, and 32 individuals with dental checkups conducted by Dr. Afshana, a dental specialist from Afshana Clinic. The initiative facilitated early detection and promoted health awareness among participants.</p>
+      <br>
+      <h4>Agenda</h4>
+      <p>The primary objective was to offer free, accessible healthcare services focusing on eye and dental health, encouraging preventive care and health education within underserved communities. The camp aimed to enhance community well-being by addressing common but critical health needs.</p>
+      <br>
+      <h4>Social Impact</h4>
+      <p>This health camp improved access to vital medical checkups, potentially preventing serious health issues through early diagnosis. It fostered a culture of health consciousness, contributing to better quality of life and reinforcing the club’s commitment to community health service.</p>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-gradient" data-close>Close</button>
+    </div>
+  </div>
+</div>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Smooth reveal using IntersectionObserver
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal-visible');
+          revealObserver.unobserve(entry.target); // reveal once
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // Stats counter (sync all to finish together, once)
+    let countersStarted = false;
+    const stats = document.getElementById('stats');
+    const startCounters = () => {
+      if (countersStarted) return; countersStarted = true;
+      const nums = stats.querySelectorAll('.stat-number');
+      const maxTarget = Math.max(...Array.from(nums).map(n => +n.dataset.target));
+      const duration = 1800; // ms total for all to reach together
+      const start = performance.now();
+
+      const step = (now) => {
+        const progress = Math.min(1, (now - start) / duration);
+        nums.forEach(n => {
+          const t = +n.dataset.target;
+          const value = Math.floor(t * progress);
+          // For display: show '+' when finished for smaller numbers; for large numbers show number plus '+'
+          if (t >= 1000) {
+            n.textContent = (value) + (progress >= 1 ? '+' : '');
+          } else {
+            n.textContent = (value) + (progress >= 1 ? '+' : '+');
+          }
+        });
+        if (progress < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) { startCounters(); statsObserver.unobserve(entry.target); } });
+    }, { threshold: 0.3 });
+    statsObserver.observe(stats);
+
+    // Generic modal helpers (converted to function declarations so inline onclick handlers can call them)
+    var reopenProjectsList = false; // flag to reopen projects list after closing a project modal
+    function openModal(el) { el.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeModal(el) { 
+      el.classList.remove('active'); 
+      document.body.style.overflow = '';
+      // If we just closed a project modal and the flag is set, reopen the projects list modal
+      if (reopenProjectsList && el.classList.contains('project-modal')) {
+        reopenProjectsList = false;
+        // small timeout so DOM updates settle
+        setTimeout(function(){ if (projectsListModal) openModal(projectsListModal); }, 180);
+      }
+    }
+    document.querySelectorAll('[data-close]').forEach(btn => btn.addEventListener('click', (e) => { const overlay = e.target.closest('.modal-overlay'); if (overlay) closeModal(overlay); }));
+    document.querySelectorAll('.modal-overlay').forEach(ov => ov.addEventListener('click', (e) => { if (e.target === ov) closeModal(ov); }));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.active').forEach(ov => closeModal(ov)); });
+
+    // Join modal triggers (both buttons)
+    const joinModal = document.getElementById('joinModal');
+    document.querySelectorAll('[data-open-join]').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); openModal(joinModal); }));
+
+    // NOTE: Removed the old dynamic fillProjectModal / wireMoreInfo logic.
+    // We now use separate modals for each project (projectModal1..projectModal13).
+
+    // View more -> open projects list modal
+    const projectsListModal = document.getElementById('projectsListModal');
+    document.getElementById('openProjectsList').addEventListener('click', () => openModal(projectsListModal));
+
+    // Open a project modal from within the projects list modal:
+    // This closes the list modal first (so the project modal appears on top).
+    function openProjectModalFromList(modalId) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      if (projectsListModal && projectsListModal.classList.contains('active')) {
+        reopenProjectsList = true;
+        closeModal(projectsListModal);
+      }
+      openModal(modal);
+    }
+
+    // Counter animation (synchronized)
+    const counters = document.querySelectorAll('.counter');
+    let counterPlayed = false;
+
+    const runCounters = () => {
+      const duration = 2000; // total time in ms
+      const startTime = performance.now();
+
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        counters.forEach(counter => {
+          const target = +counter.dataset.target;
+          counter.textContent = Math.floor(target * progress) + '+';
+        });
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        }
+      };
+
+      requestAnimationFrame(animate);
+    };
+
+    // Scroll reveal animation
+    const revealElements = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target); // trigger only once
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(el => observer.observe(el));
+
+    // Observe About section only once (for counters)
+    const aboutSection = document.querySelector('#about');
+    const counterObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !counterPlayed) {
+          runCounters();
+          counterPlayed = true;
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    counterObserver.observe(aboutSection);
+
+  </script>
+</body>
+</html>
